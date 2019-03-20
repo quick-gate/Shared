@@ -1,5 +1,4 @@
 ﻿using QGate.Core.Collections;
-using System;
 using System.Collections.Generic;
 
 namespace QGate.Core.Exceptions
@@ -10,7 +9,7 @@ namespace QGate.Core.Exceptions
         {
             if (paramValue == null)
             {
-                throw new ArgumentNullException(GetFormattedParamPath(paramPath));
+                throw new ArgumentNullOrEmptyException(GetFormattedParamPath(paramPath));
             }
         }
 
@@ -18,7 +17,7 @@ namespace QGate.Core.Exceptions
         {
             if (string.IsNullOrWhiteSpace(paramValue))
             {
-                throw new ArgumentNullException(GetFormattedParamPath(paramPath));
+                throw new ArgumentNullOrEmptyException(GetFormattedParamPath(paramPath));
             }
         }
 
@@ -29,7 +28,7 @@ namespace QGate.Core.Exceptions
 
             if(paramValue.IsNullOrEmpty())
             {
-                throw new ArgumentNullException(formattedParamPath, "Collection is empty");
+                throw new ArgumentNullOrEmptyException(formattedParamPath, "Collection is empty");
             }
         }
 
