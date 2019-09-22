@@ -4,6 +4,8 @@ namespace QGate.Core.Texts
 {
     public static class StringExtensions
     {
+        public const string Gap = " ";
+
         /// <summary>
         /// Determines (safely) whether are string equals with ignore case comparison
         /// </summary>
