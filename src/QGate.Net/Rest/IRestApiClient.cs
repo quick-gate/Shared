@@ -16,15 +16,6 @@ namespace QGate.Net.Rest
         Task<RestApiClientResult<TResult>> GetAsync<TResult>(string url);
 
         /// <summary>
-        /// Gets the response from specified URL.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="url">The URL.</param>
-        /// <param name="data">The request data.</param>
-        /// <returns></returns>
-        Task<RestApiClientResult<TResult>> GetAsync<TResult>(string url, object data);
-
-        /// <summary>
         /// HTTP POST method wrapper
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
@@ -85,13 +76,5 @@ namespace QGate.Net.Rest
         /// <param name="url"></param>
         /// <returns></returns>
         Task<RestApiClientResult<TResult>> DeleteAsync<TResult>(string url);
-
-        /// <summary>
-        /// HTTP Delete method wrapper
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        Task<RestApiClientResult<object>> DeleteAsync(string url);
     }
 }

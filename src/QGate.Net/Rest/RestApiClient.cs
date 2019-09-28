@@ -3,7 +3,6 @@ using QGate.Net.Exceptions;
 using QGate.Net.Http;
 using System;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,24 +18,22 @@ namespace QGate.Net.Rest
         }
 
 
-        public Task<RestApiClientResult<TResult>> DeleteAsync<TResult>(string url)
+        public async Task<RestApiClientResult<TResult>> DeleteAsync<TResult>(string url)
         {
-            throw new NotImplementedException();
+            using (var httpClient = GetHttpClient())
+            {
+                var response = await httpClient.DeleteAsync(url);
+                return await GetResult<TResult>(response);
+            }
         }
 
-        public Task<RestApiClientResult<object>> DeleteAsync(string url)
+        public async Task<RestApiClientResult<TResult>> GetAsync<TResult>(string url)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<RestApiClientResult<TResult>> GetAsync<TResult>(string url)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<RestApiClientResult<TResult>> GetAsync<TResult>(string url, object data)
-        {
-            throw new NotImplementedException();
+            using (var httpClient = GetHttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+                return await GetResult<TResult>(response);
+            }
         }
 
         public Task<RestApiClientResult<TResult>> PostAsync<TResult>(string url, object data)
@@ -69,7 +66,7 @@ namespace QGate.Net.Rest
             throw new NotImplementedException();
         }
 
-        private Task<RestApiClientResult<TResult>> PostOrPutAsync<TResult>(string url, object data, bool post)
+        private async Task<RestApiClientResult<TResult>> PostOrPutAsync<TResult>(string url, object data, bool post)
         {
 
             //There are possibility to overload this method with content type parameter
@@ -84,10 +81,10 @@ namespace QGate.Net.Rest
             {
 
                 var response = post ?
-                    httpClient.PostAsync(url, content).Result :
-                    httpClient.PutAsync(url, content).Result;
+                    await httpClient.PostAsync(url, content) :
+                    await httpClient.PutAsync(url, content);
 
-                return GetResult<TResult>(response);
+                return await GetResult<TResult>(response);
             }
         }
 
