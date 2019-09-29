@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
+             xmlns:syncfusion="clr-namespace:Syncfusion.XForms.Expander;assembly=Syncfusion.Expander.XForms"
+             mc:Ignorable="d"
+             x:Class="QGate.XamarinForms.Controls.Dialogs.ErrorDialogControl">
+    <ContentView.Content>
+        <StackLayout>
+            <sfPopup:SfPopupLayout x:Name="popupLayout">
+                <sfPopup:SfPopupLayout.PopupView>
+                    <sfPopup:PopupView HeaderTitle="Error">
+                        <sfPopup:PopupView.PopupStyle>
+                            <sfPopup:PopupStyle OverlayColor="Black" HeaderTextColor="#414141" OverlayOpacity="0.5" HeaderBackgroundColor="#F2F2F2"
+                                    FooterBackgroundColor="#F2F2F2"/>
+                        </sfPopup:PopupView.PopupStyle>
+                        <sfPopup:PopupView.ContentTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Label Margin="5,5,5,5" Text="{Binding Message}"
+                           HorizontalTextAlignment="Center"/>
+                                    <Button x:Name="ShowDetailButton" Margin="5, 50,5,5" Clicked="ShowDetailButton_Clicked" Text="Show detail ..."></Button>
+                                </StackLayout>
+                            </DataTemplate>
+                        </sfPopup:PopupView.ContentTemplate>
+                    </sfPopup:PopupView>
+                </sfPopup:SfPopupLayout.PopupView>
+                <sfPopup:SfPopupLayout.Content>
+                    <StackLayout x:Name="layout">
+                        <Button x:Name="clickToShowPopup" Text="ClickToShowPopup" VerticalOptions="Start" 
+               HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </sfPopup:SfPopupLayout.Content>
+            </sfPopup:SfPopupLayout>
+
+            <sfPopup:SfPopupLayout x:Name="DetailPopup">
+                <sfPopup:SfPopupLayout.PopupView>
+                    <sfPopup:PopupView HeaderTitle="Detail" IsFullScreen="True">
+                        <sfPopup:PopupView.PopupStyle>
+                            <sfPopup:PopupStyle OverlayColor="Black" HeaderTextColor="#414141" OverlayOpacity="0.5" HeaderBackgroundColor="#F2F2F2"
+                                    FooterBackgroundColor="#F2F2F2"/>
+                        </sfPopup:PopupView.PopupStyle>
+                        <sfPopup:PopupView.ContentTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Label Margin="5,5,5,5" Text="{Binding DevMessage}"
+                           HorizontalTextAlignment="Center"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </sfPopup:PopupView.ContentTemplate>
+                    </sfPopup:PopupView>
+                </sfPopup:SfPopupLayout.PopupView>
+                <sfPopup:SfPopupLayout.Content>
+                    <StackLayout>
+                        <Button  Text="ClickToShowPopup" VerticalOptions="Start" 
+               HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </sfPopup:SfPopupLayout.Content>
+            </sfPopup:SfPopupLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
