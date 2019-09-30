@@ -22,6 +22,12 @@ namespace QGate.XamarinForms.Controls.Dialogs
             popupLayout.Show();
         }
 
+        public void Show(string message)
+        {
+            _vm.DevMessage = message;
+            popupLayout.Show();
+        }
+
         private void ShowDetailButton_Clicked(object sender, EventArgs e)
         {
             DetailPopup.Show(true);

@@ -13,7 +13,7 @@
                 <sfPopup:SfPopupLayout.PopupView>
                     <sfPopup:PopupView HeaderTitle="Error">
                         <sfPopup:PopupView.PopupStyle>
-                            <sfPopup:PopupStyle OverlayColor="Black" HeaderTextColor="#414141" OverlayOpacity="0.5" HeaderBackgroundColor="#F2F2F2"
+                            <sfPopup:PopupStyle OverlayColor="Black" HeaderTextColor="#414141" OverlayOpacity="0.8" HeaderBackgroundColor="#F2F2F2"
                                     FooterBackgroundColor="#F2F2F2"/>
                         </sfPopup:PopupView.PopupStyle>
                         <sfPopup:PopupView.ContentTemplate>
@@ -39,7 +39,7 @@
                 <sfPopup:SfPopupLayout.PopupView>
                     <sfPopup:PopupView HeaderTitle="Detail" IsFullScreen="True">
                         <sfPopup:PopupView.PopupStyle>
-                            <sfPopup:PopupStyle OverlayColor="Black" HeaderTextColor="#414141" OverlayOpacity="0.5" HeaderBackgroundColor="#F2F2F2"
+                            <sfPopup:PopupStyle OverlayColor="Black" HeaderTextColor="#414141" OverlayOpacity="0.8" HeaderBackgroundColor="#F2F2F2"
                                     FooterBackgroundColor="#F2F2F2"/>
                         </sfPopup:PopupView.PopupStyle>
                         <sfPopup:PopupView.ContentTemplate>
