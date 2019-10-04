@@ -4,7 +4,8 @@ namespace QGate.XamarinForms.Controls.Dialogs.ViewModels
 {
     public class ErrorDialogVm: VmBase
     {
-        private string _message = "Oops! Something went worng. Please try again later.";
+        public const string CustomMessage = "Oops! Something went worng. Please try again later.";
+        private string _message = CustomMessage;
         private string _devMessage;
         public string Message
         {

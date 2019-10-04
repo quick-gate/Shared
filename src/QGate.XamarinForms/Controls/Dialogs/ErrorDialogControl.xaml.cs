@@ -19,12 +19,21 @@ namespace QGate.XamarinForms.Controls.Dialogs
         public void Show(Exception exception)
         {
             _vm.DevMessage = exception == null ? null : exception.ToString();
+            _vm.Message = ErrorDialogVm.CustomMessage;
             popupLayout.Show();
         }
 
         public void Show(string message)
         {
             _vm.DevMessage = message;
+            _vm.Message = ErrorDialogVm.CustomMessage;
+            popupLayout.Show();
+        }
+
+        public void Show(string message, string devMessage)
+        {
+            _vm.Message = string.IsNullOrWhiteSpace(message) ? ErrorDialogVm.CustomMessage : message;
+            _vm.DevMessage = devMessage;
             popupLayout.Show();
         }
 
