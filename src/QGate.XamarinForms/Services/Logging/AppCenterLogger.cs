@@ -24,7 +24,20 @@ namespace QGate.XamarinForms.Services.Logging
             TrackError(message, exception, data);
         }
 
+        public void Info(string message, object data = null)
+        {
+            TrackEvent(string.Concat("Info: ", message), data);
+        }
+
         private void TrackError(string message, Exception exception, object data)
+        {
+            TrackEvent(string.Concat("Error: Error message: ", message, " , Exception: ",  Convert.ToString(exception)), data);
+
+            //Currently does not support UWP
+            //Crashes.TrackError(exception, dataDictionary);
+        }
+
+        private void TrackEvent(string message, object data)
         {
             IDictionary<string, string> dataDictionary = null;
             if (data != null)
@@ -35,10 +48,7 @@ namespace QGate.XamarinForms.Services.Logging
                 };
             }
 
-            Analytics.TrackEvent(string.Concat("Error message:", message, " , Exception: ",  exception.ToString()), dataDictionary);
-
-            //Currently does not support UWP
-            //Crashes.TrackError(exception, dataDictionary);
+            Analytics.TrackEvent(message, dataDictionary);
         }
     }
 }
