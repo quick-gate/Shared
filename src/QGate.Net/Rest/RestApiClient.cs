@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using QGate.Net.Exceptions;
 using QGate.Net.Http;
+using QGate.Net.Rest.Config;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -11,29 +12,36 @@ namespace QGate.Net.Rest
 {
     public class RestApiClient : IRestApiClient
     {
-        IHttpClientFactory _httpClientFactory;
+        private IHttpClientFactory _httpClientFactory;
+        private readonly RestApiClientConfig _config;
         public RestApiClient()
         {
-             _httpClientFactory = new HttpClientFactory();
+            InitHttpClientFactory();
         }
 
+        public RestApiClient(RestApiClientConfig config)
+        {
+            _config = config;
+            InitHttpClientFactory();
+        }
+
+        private void InitHttpClientFactory()
+        {
+            _httpClientFactory = new HttpClientFactory();
+        }
 
         public async Task<RestApiClientResult<TResult>> DeleteAsync<TResult>(string url)
         {
-            using (var httpClient = GetHttpClient())
-            {
-                var response = await httpClient.DeleteAsync(url);
-                return await GetResult<TResult>(response);
-            }
+            var httpClient = GetHttpClient();
+            var response = await httpClient.DeleteAsync(url);
+            return await GetResult<TResult>(response);
         }
 
         public async Task<RestApiClientResult<TResult>> GetAsync<TResult>(string url)
         {
-            using (var httpClient = GetHttpClient())
-            {
-                var response = await httpClient.GetAsync(url);
-                return await GetResult<TResult>(response);
-            }
+            var httpClient = GetHttpClient();
+            var response = await httpClient.GetAsync(url);
+            return await GetResult<TResult>(response);
         }
 
         public Task<RestApiClientResult<TResult>> PostAsync<TResult>(string url, object data)
@@ -77,20 +85,32 @@ namespace QGate.Net.Rest
                 data as HttpContent :
                 new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, ContentType.ApplicationJson);
 
-            using (var httpClient = GetHttpClient())
-            {
+            var httpClient = GetHttpClient();
+            var response = post ?
+                await httpClient.PostAsync(url, content) :
+                await httpClient.PutAsync(url, content);
 
-                var response = post ?
-                    await httpClient.PostAsync(url, content) :
-                    await httpClient.PutAsync(url, content);
-
-                return await GetResult<TResult>(response);
-            }
+            return await GetResult<TResult>(response);
         }
 
         private HttpClient GetHttpClient()
         {
-            return _httpClientFactory.Get();
+            var httpClient = _httpClientFactory.Get();
+            if(string.IsNullOrWhiteSpace(_config?.AuthConfig?.AuthHeaderConfig?.Secret))
+            {
+                return httpClient;
+            }
+
+            if(httpClient.DefaultRequestHeaders.Contains(_config.AuthConfig.AuthHeaderConfig.HeaderName))
+            {
+                return httpClient;
+            }
+
+            httpClient.DefaultRequestHeaders.Add(
+                _config.AuthConfig.AuthHeaderConfig.HeaderName,
+                _config.AuthConfig.AuthHeaderConfig.Secret);
+
+            return httpClient;
 
         }
 

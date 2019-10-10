@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using QGate.Net.Rest.Config;
+using System.Threading.Tasks;
 
 namespace QGate.Net.Rest
 {

@@ -1,4 +1,4 @@
-﻿namespace QGate.Net.Rest
+﻿namespace QGate.Net.Rest.Config
 {
     public class RestApiCallConfig
     {

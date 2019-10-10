@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace QGate.Net.Http
 {
     public class HttpClientFactory : IHttpClientFactory
     {
-        private static readonly Lazy<HttpClient> _httpClientLazy = new Lazy<HttpClient>(() => new HttpClient());
+        private const string DefaultContextName = "Internal_DefaultContext";
+        private static IDictionary<string, Lazy<HttpClient>> _httpClientDictionary = new ConcurrentDictionary<string, Lazy<HttpClient>>();
         public HttpClient Get()
         {
-            return _httpClientLazy.Value;
+            return FindOrCreateHttpClient(DefaultContextName);
         }
 
         public HttpClient Get(HttpMessageHandler handler)
@@ -17,8 +20,25 @@ namespace QGate.Net.Http
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+            var contextName = string.Concat("Handler_", handler.GetHashCode());
+            return FindOrCreateHttpClient(contextName, handler);
+        }
 
-            return new HttpClient(handler);
+        public HttpClient Get(string contextName)
+        {
+            return FindOrCreateHttpClient(contextName);
+        }
+
+        private HttpClient FindOrCreateHttpClient(string contextName, HttpMessageHandler handler = null)
+        {
+            if (_httpClientDictionary.TryGetValue(contextName, out Lazy<HttpClient> httpClientLazy))
+            {
+                return httpClientLazy.Value;
+            }
+
+            httpClientLazy = new Lazy<HttpClient>(() => handler == null ? new HttpClient() : new HttpClient(handler));
+            _httpClientDictionary.Add(contextName, httpClientLazy);
+            return httpClientLazy.Value;
         }
     }
 }
