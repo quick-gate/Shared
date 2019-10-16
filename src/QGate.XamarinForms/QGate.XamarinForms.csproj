@@ -7,8 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.1.1" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.11.0" />
-    <PackageReference Include="Syncfusion.Xamarin.Expander" Version="17.3.0.9-beta" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="17.3.0.9-beta" />
+    <PackageReference Include="Syncfusion.Xamarin.Expander" Version="17.3.0.17" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="17.3.0.17" />
     <PackageReference Include="System.Text.Json" Version="4.6.0" />
   </ItemGroup>
 
