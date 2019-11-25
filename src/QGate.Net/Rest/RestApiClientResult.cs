@@ -14,5 +14,19 @@ namespace QGate.Net.Rest
                 return HttpResponseMessage != null && HttpResponseMessage.IsSuccessStatusCode;
             }
         }
+
+        /// <summary>
+        /// Gets error message if exists
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetErrorMessageAsync()
+        {
+            if ((HttpResponseMessage?.IsSuccessStatusCode).GetValueOrDefault() || HttpResponseMessage.Content == null)
+            {
+                return null;
+            }
+
+            return await HttpResponseMessage.Content.ReadAsStringAsync();
+        }
     }
 }
